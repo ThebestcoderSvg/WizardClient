@@ -70,6 +70,13 @@ Useful additional commands:
 .\gradlew.bat runClient
 ```
 
+## Known Limitations
+
+- This is not the full version of what CodeX was meant to become.
+- The current module set is limited to what was already built before development stopped.
+- Some systems are solid and usable, but the project should still be treated as an archived codebase, not a finished long-term client platform.
+- Any future growth, support, or feature expansion now belongs to community forks rather than an official CodeX roadmap.
+
 ## Project Notes
 
 - Main Fabric entrypoints:
@@ -79,6 +86,8 @@ Useful additional commands:
   - [`fabric.mod.json`](src/main/resources/fabric.mod.json)
 - Mixins:
   - [`codex.mixins.json`](src/main/resources/codex.mixins.json)
+- Contributor guidance:
+  - [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 Configuration is stored in the Minecraft config directory:
 

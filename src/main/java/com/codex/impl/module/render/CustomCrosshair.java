@@ -72,7 +72,7 @@ public class CustomCrosshair extends Module implements IPreviewable {
 
     @EventTarget
     public void onUpdate(UpdateEvent event) {
-        // Handled in render to ensure perfectly smooth animations decoupled from 20 TPS tick rate
+        // Animation is handled during rendering so the crosshair stays visually smooth.
     }
 
     public void onAttackEntity(Entity entity) {
@@ -158,7 +158,7 @@ public class CustomCrosshair extends Module implements IPreviewable {
         }
 
         context.getMatrices().push();
-        // Translate to exact center coordinate to ensure symmetrical expansion regardless of resolution parity
+        // Render from the exact screen center so expansion stays visually balanced.
         context.getMatrices().translate(centerX, centerY, 0);
 
         boolean doInvert = dynamicInvert.get();
@@ -175,7 +175,7 @@ public class CustomCrosshair extends Module implements IPreviewable {
 
         int color = doInvert ? 0xFFFFFFFF : getColor(mc, isHoveringEntity, isPreview);
         float len = (float) length.asDouble();
-        float thick = 1.0f; // Fixed thickness for professional PvP standard
+        float thick = 1.0f;
         float gap = (float) gapSize.asDouble() + currentExpand;
         boolean hasOutline = outline.get() && !doInvert; 
         float outThick = (float) outlineThickness.asDouble();
@@ -241,7 +241,6 @@ public class CustomCrosshair extends Module implements IPreviewable {
         } else if ("Dot".equals(s)) {
             drawCenteredFloatRect(context, 0, 0, thick, thick, color, hasOutline, outThick, doInvert);
         } else if ("Circle".equals(s)) {
-            // True geometric circle
             float radius = len + gap;
             drawHollowCircle(context, 0, 0, radius, thick, color, hasOutline, outThick, doInvert);
         }
@@ -265,10 +264,9 @@ public class CustomCrosshair extends Module implements IPreviewable {
             drawCenteredFloatRect(context, brGap + brLen/2f, brLen, brLen, thick, fadeColor, hasOutline, outThick, doInvert); // Bottom
             drawCenteredFloatRect(context, brGap + brLen, 0, thick, brLen * 2 + thick, fadeColor, hasOutline, outThick, doInvert); // Spine
         } else if ("Dot".equals(mode)) {
-            float dotSize = thick + 1.0f; // Slightly larger for emphasis
+            float dotSize = thick + 1.0f;
             drawCenteredFloatRect(context, 0, 0, dotSize, dotSize, fadeColor, hasOutline, outThick, doInvert); // Center dot
         } else if ("Circle".equals(mode)) {
-            // Morphing circle effect
             float radius = (len + gap) * animProgress;
             drawHollowCircle(context, 0, 0, radius, thick, fadeColor, hasOutline, outThick, doInvert);
         }
@@ -287,7 +285,7 @@ public class CustomCrosshair extends Module implements IPreviewable {
         float maxX = cx + (w / 2.0f);
         float maxY = cy + (h / 2.0f);
         
-        // Render float geometry precisely using matrices scaling by a large factor to avoid integer casting issues in native context.fill()
+        // Scale temporarily so sub-pixel geometry can still be drawn cleanly through DrawContext.
         context.getMatrices().push();
         context.getMatrices().scale(1/1000f, 1/1000f, 1f);
         context.fill((int)(minX * 1000), (int)(minY * 1000), (int)(maxX * 1000), (int)(maxY * 1000), color);
@@ -304,15 +302,15 @@ public class CustomCrosshair extends Module implements IPreviewable {
     }
     
     private void drawTorus(DrawContext context, float cx, float cy, float innerRadius, float outerRadius, int color) {
-        int segments = 120; // Maximum Quality Smooth Circle
+        int segments = 120;
         float angleStep = (float) (2 * Math.PI / segments);
         float avgRad = (innerRadius + outerRadius) / 2.0f;
         float actualThick = outerRadius - innerRadius;
         
-        // Draw precise rotated rectangles to simulate a perfectly smooth circle torus
+        // Approximate the circle with many short rotated quads for a smoother result.
         for (int i = 0; i < segments; i++) {
             float angle = i * angleStep;
-            float length = (float) (2 * Math.PI * avgRad / segments) + 0.5f; // Add tiny overlap to prevent gaps
+            float length = (float) (2 * Math.PI * avgRad / segments) + 0.5f;
             
             float x = cx + (float)(Math.cos(angle) * avgRad);
             float y = cy + (float)(Math.sin(angle) * avgRad);
@@ -330,7 +328,7 @@ public class CustomCrosshair extends Module implements IPreviewable {
         if ("Static".equals(mode)) {
             return staticColor.get();
         } else if ("Rainbow".equals(mode)) {
-            // Using the new global Chroma Sync from RenderUtils to ensure the crosshair perfectly matches the rest of the HUD
+            // Use the shared chroma calculation so the crosshair matches the rest of the HUD.
             int scaledWidth = mc.getWindow().getScaledWidth();
             int scaledHeight = mc.getWindow().getScaledHeight();
             return RenderUtils.getChromaColor(scaledWidth / 2.0f, scaledHeight / 2.0f, 1.0f);

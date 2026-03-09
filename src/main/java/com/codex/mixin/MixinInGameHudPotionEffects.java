@@ -15,7 +15,7 @@ public class MixinInGameHudPotionEffects {
     private void onRenderStatusEffectOverlay(net.minecraft.client.gui.DrawContext context, net.minecraft.client.render.RenderTickCounter tickCounter, CallbackInfo ci) {
         PotionEffects module = ModuleManager.getInstance().getModule(PotionEffects.class);
         if (module != null && module.isEnabled()) {
-            ci.cancel(); // Cancel vanilla potion rendering so our beautiful HUD takes over fully
+            ci.cancel(); // Let the custom HUD handle potion effect rendering when the module is active.
         }
     }
 }

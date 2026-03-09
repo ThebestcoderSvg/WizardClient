@@ -13,13 +13,7 @@ public class MixinClientWorld {
 
     @Inject(method = "getTimeOfDay", at = @At("HEAD"), cancellable = true)
     private void onGetTimeOfDay(CallbackInfoReturnable<Long> cir) {
-        TimeChanger timeChanger = ModuleManager.getInstance().getModule(TimeChanger.class);
-        if (timeChanger != null && timeChanger.isEnabled()) {
-            // ClientWorld.getTimeOfDay usually returns the raw time.
-            // We pass it in case the module is off (but it won't be if we are in this block, except for the multiplayer check)
-            // But we don't have the original value easily without calling super, which we can't do in an inject HEAD without extra logic.
-            // Actually, we can just intercept the return value.
-        }
+        // Kept intentionally empty. The actual override happens in the RETURN injection below.
     }
     
     @Inject(method = "getTimeOfDay", at = @At("RETURN"), cancellable = true)
