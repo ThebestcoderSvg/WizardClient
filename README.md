@@ -1,6 +1,6 @@
-# CodeX Client
+# Wizard Client
 
-CodeX Client is a Fabric client for Minecraft `1.21.4`.
+Wizard  Client is a Fabric client for Minecraft `1.21.11`.
 
 I am publishing this repository as an archival release.
 
@@ -8,7 +8,7 @@ CodeX Client is no longer in active production, and I am not planning any more o
 
 ## Current State
 
-- Target version: Minecraft `1.21.4`
+- Target version: Minecraft `1.21.11`
 - Loader: Fabric
 - Java: `21`
 - Build layout: single Gradle project at repository root
@@ -16,9 +16,9 @@ CodeX Client is no longer in active production, and I am not planning any more o
 
 ## Original Idea
 
-The original plan for CodeX was simple:
+The original plan for Wizard was simple:
 
-- build a ghost / legit semi-hacked Minecraft client
+- Legit Minecraft client
 - keep it free for everyone
 - grow it into something much bigger, with a lot more features, modules, polish, and quality over time
 - push it closer to the scale of other well-known clients, but with its own identity
