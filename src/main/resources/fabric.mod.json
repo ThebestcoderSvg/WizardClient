@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Wizard Client",
   "description": "A utility client for Minecraft 1.21.11 on Fabric.",
-  "authors": ["CodeX Team"],
+  "authors": ["LittleWZRD"],
   "contact": {},
   "environment": "client",
   "entrypoints": {
