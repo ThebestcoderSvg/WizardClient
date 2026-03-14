@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "codex-client",
+  "id": "wizard-client",
   "version": "${version}",
-  "name": "CodeX Client",
-  "description": "A utility client for Minecraft 1.21.4 on Fabric.",
+  "name": "Wizard Client",
+  "description": "A utility client for Minecraft 1.21.11 on Fabric.",
   "authors": ["CodeX Team"],
   "contact": {},
   "environment": "client",
